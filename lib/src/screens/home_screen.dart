@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shiftme/src/screens/profile.dart';
 import 'package:spaces/spaces.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -36,8 +37,16 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const ListTile(
-                title: Text("Profile"),
+              ListTile(
+                title: const Text("Profile"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  );
+                },
               ),
               const ListTile(
                 title: Text("Bookings"),
