@@ -8,18 +8,30 @@ class BookingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final tabs = ['In Progress', 'Completed'];
 
+    final tabLabelColor;
+    final tabIndcatorColor;
+
+    if (Theme.of(context).colorScheme.brightness == Brightness.dark) {
+      tabLabelColor = Theme.of(context).colorScheme.onBackground;
+      tabIndcatorColor = Theme.of(context).colorScheme.primary;
+    } else {
+      tabLabelColor = Theme.of(context).colorScheme.onBackground;
+      tabIndcatorColor = Theme.of(context).colorScheme.primary;
+    }
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 0,
+          centerTitle: true,
           title: const Text('Bookings'),
           backgroundColor: Theme.of(context).canvasColor,
           foregroundColor: Theme.of(context).colorScheme.primary,
           bottom: TabBar(
-            labelColor: Colors.white,
-            indicatorColor: Colors.white,
+            labelColor: tabLabelColor,
+            indicatorColor: tabIndcatorColor,
             tabs: tabs
                 .map(
                   (type) => Tab(text: type),

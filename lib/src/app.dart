@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       ),
       theme: ThemeData(
         primaryColor: Colors.orange,
-        colorScheme: const ColorScheme.light().copyWith(
+        colorScheme: const ColorScheme.dark().copyWith(
           primary: Colors.orange,
           secondary: Colors.brown,
         ),
