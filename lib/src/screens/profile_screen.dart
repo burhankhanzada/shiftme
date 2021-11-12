@@ -102,7 +102,14 @@ class ProfileScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               child: const Text("Become Tranporter"),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BecomeTransporterScreen(),
+                  ),
+                );
+              },
             ),
           ),
         ],
