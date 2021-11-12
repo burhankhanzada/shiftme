@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shiftme/src/screens/profile.dart';
+import 'package:shiftme/src/screens/bookings_screen.dart';
+import 'package:shiftme/src/screens/profile_screen.dart';
 import 'package:spaces/spaces.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -48,8 +49,16 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-              const ListTile(
-                title: Text("Bookings"),
+              ListTile(
+                title: const Text("Bookings"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BookingsScreen(),
+                    ),
+                  );
+                },
               )
             ],
           ),
