@@ -14,12 +14,12 @@ class App extends StatelessWidget {
         child: child!,
       ),
       theme: ThemeData(
-          primaryColor: Colors.brown,
-          accentColor: Colors.orange,
-          colorScheme: const ColorScheme.light().copyWith(
-            primary: Colors.brown,
-            secondary: Colors.orange,
-          )),
+        primaryColor: Colors.orange,
+        colorScheme: const ColorScheme.light().copyWith(
+          primary: Colors.orange,
+          secondary: Colors.brown,
+        ),
+      ),
       home: const HomeScreen(),
     );
   }

@@ -13,16 +13,19 @@ class BookingsScreen extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          elevation: 0,
+          title: const Text('Bookings'),
+          backgroundColor: Theme.of(context).canvasColor,
+          foregroundColor: Theme.of(context).colorScheme.primary,
           bottom: TabBar(
-            labelColor: Theme.of(context).colorScheme.onPrimary,
-            indicatorColor: Theme.of(context).colorScheme.onPrimary,
+            labelColor: Colors.white,
+            indicatorColor: Colors.white,
             tabs: tabs
                 .map(
                   (type) => Tab(text: type),
                 )
                 .toList(),
           ),
-          title: const Text('Bookings '),
         ),
         body: TabBarView(
           children: tabs

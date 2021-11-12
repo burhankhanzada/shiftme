@@ -11,7 +11,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("ShiftMe"),
+        elevation: 0,
+        backgroundColor: Theme.of(context).canvasColor,
+        foregroundColor: Theme.of(context).colorScheme.primary,
+        title: Image.asset(
+          'assets/images/brand_logo.png',
+          fit: BoxFit.contain,
+          height: 30,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
@@ -27,19 +34,31 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: SpacedRow.semiBig(
                   children: [
-                    const CircleAvatar(
-                      backgroundColor: Colors.brown,
+                    CircleAvatar(
                       radius: 36,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      child: const Icon(
+                        Icons.person,
+                        size: 48,
+                        color: Colors.white,
+                      ),
                     ),
                     Text(
                       "User Name",
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                     )
                   ],
                 ),
               ),
               ListTile(
-                title: const Text("Profile"),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -50,7 +69,12 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: const Text("Bookings"),
+                title: Text(
+                  "Bookings",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
                 onTap: () {
                   Navigator.push(
                     context,

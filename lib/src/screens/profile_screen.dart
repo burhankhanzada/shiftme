@@ -9,8 +9,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         title: const Text("Profile"),
+        backgroundColor: Theme.of(context).canvasColor,
+        foregroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
@@ -26,8 +29,14 @@ class ProfileScreen extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.center,
                         child: CircleAvatar(
-                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                           radius: 56,
+                          child: const Icon(
+                            Icons.person,
+                            size: 96,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
