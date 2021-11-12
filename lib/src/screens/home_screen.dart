@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shiftme/src/screens/bookings_screen.dart';
 import 'package:shiftme/src/screens/profile_screen.dart';
+import 'package:shiftme/src/screens/tranport_details_screen.dart';
 import 'package:spaces/spaces.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -105,52 +106,82 @@ class HomeScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              children: const [
-                Card(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: SpacedColumn(
-                      padding: EdgeInsets.all(8),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Driver Name: Ali"),
-                        Text("Vechile: Shezor"),
-                        Text("Load Capacity: 500kg"),
-                        Text("Availability: 10AM - 8PM"),
-                        Text("Starting Price: 500"),
-                      ],
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TransporterDetailsScreen(),
+                      ),
+                    );
+                  },
+                  child: const Card(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: SpacedColumn(
+                        padding: EdgeInsets.all(8),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Driver Name: Ali"),
+                          Text("Vechile: Shezor"),
+                          Text("Load Capacity: 500kg"),
+                          Text("Availability: 10AM - 8PM"),
+                          Text("Starting Price: 500"),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Card(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: SpacedColumn(
-                      padding: EdgeInsets.all(8),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Driver Name: Ali"),
-                        Text("Vechile: Ravi"),
-                        Text("Load Capacity: 500kg"),
-                        Text("Availability: 10AM - 8PM"),
-                        Text("Starting Price: 500"),
-                      ],
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TransporterDetailsScreen(),
+                      ),
+                    );
+                  },
+                  child: const Card(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: SpacedColumn(
+                        padding: EdgeInsets.all(8),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Driver Name: Ali"),
+                          Text("Vechile: Ravi"),
+                          Text("Load Capacity: 500kg"),
+                          Text("Availability: 10AM - 8PM"),
+                          Text("Starting Price: 500"),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Card(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: SpacedColumn(
-                      padding: EdgeInsets.all(8),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Driver Name: Ali"),
-                        Text("Vechile: Mazda"),
-                        Text("Load Capacity: 500kg"),
-                        Text("Availability: 10AM - 8PM"),
-                        Text("Starting Price: 500"),
-                      ],
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TransporterDetailsScreen(),
+                      ),
+                    );
+                  },
+                  child: const Card(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: SpacedColumn(
+                        padding: EdgeInsets.all(8),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Driver Name: Ali"),
+                          Text("Vechile: Mazda"),
+                          Text("Load Capacity: 500kg"),
+                          Text("Availability: 10AM - 8PM"),
+                          Text("Starting Price: 500"),
+                        ],
+                      ),
                     ),
                   ),
                 )
