@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:spaces/spaces.dart';
 
 class TransporterDetailsScreen extends StatelessWidget {
-  const TransporterDetailsScreen({Key? key}) : super(key: key);
+  const TransporterDetailsScreen({key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  build(context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

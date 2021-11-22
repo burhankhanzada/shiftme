@@ -3,10 +3,10 @@ import 'package:shiftme/src/screens/become_tranporter_screen.dart';
 import 'package:spaces/spaces.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  build(context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

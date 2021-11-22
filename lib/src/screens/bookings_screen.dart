@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:spaces/spaces.dart';
 
 class BookingsScreen extends StatelessWidget {
-  const BookingsScreen({Key? key}) : super(key: key);
+  const BookingsScreen({key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  build(context) {
     final tabs = ['In Progress', 'Completed'];
 
     final tabLabelColor;

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:spaces/spaces.dart';
 
 class BecomeTransporterScreen extends StatelessWidget {
-  const BecomeTransporterScreen({Key? key}) : super(key: key);
+  const BecomeTransporterScreen({key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  build(context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
