@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/providers/auth_provider.dart';
@@ -13,10 +14,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _numberController = TextEditingController();
   final _pinPutController = TextEditingController();
 
   late String _otpCode;
+
+  PhoneNumber number = PhoneNumber(isoCode: 'PK');
 
   @override
   build(context) {
@@ -46,10 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 auth.validateOtpAndLogin(context, _otpCode);
               } else {
-                auth.verifyPhoneNumberAndSendCode(
-                  context,
-                  _numberController.text,
-                );
+                auth.verifyPhoneNumberAndSendCode(context, number.phoneNumber);
               }
             },
           ),
@@ -64,27 +63,17 @@ class _LoginScreenState extends State<LoginScreen> {
         'assets/images/brand_logo.png',
         fit: BoxFit.contain,
       ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Enter your mobile number',
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(color: Theme.of(context).colorScheme.primary),
-          ),
-          TextField(
-            maxLines: 1,
-            autofocus: true,
-            controller: _numberController,
-            keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              hintText: '+923XXXXXXXXX',
-            ),
-          ),
-        ],
+      InternationalPhoneNumberInput(
+        countries: const ['PK'],
+        hintText: '03XXXXXXXX',
+        initialValue: PhoneNumber(isoCode: 'PK'),
+        autoValidateMode: AutovalidateMode.onUserInteraction,
+        onInputChanged: (number) {
+          this.number = number;
+        },
+        onInputValidated: (value) {
+          print(value);
+        },
       )
     ];
   }
