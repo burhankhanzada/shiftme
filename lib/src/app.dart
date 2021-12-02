@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/constants/color_constants.dart';
-import 'package:shiftme/src/providers/auth_provider.dart';
+import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:shiftme/src/screens/home/home_screen.dart';
-import 'package:shiftme/src/screens/login_screen.dart';
+import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
 import 'package:spaces/spaces.dart';
+
+import 'models/user.dart';
 
 class App extends StatelessWidget {
   const App({key}) : super(key: key);
+
+  static late User user;
 
   @override
   build(context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(
-          create: (context) => AuthProvider(),
-        )
+        ChangeNotifierProvider<AuthUserProvider>(
+          create: (context) => AuthUserProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -32,7 +36,7 @@ class App extends StatelessWidget {
             onSecondary: Colors.white,
           ),
         ),
-        home: Consumer<AuthProvider>(
+        home: Consumer<AuthUserProvider>(
           builder: (context, auth, child) {
             if (auth.isAuthenticated()) {
               return const HomeScreen();

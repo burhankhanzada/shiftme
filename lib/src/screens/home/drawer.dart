@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shiftme/src/providers/auth_provider.dart';
+import 'package:shiftme/src/app.dart';
+import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:spaces/spaces.dart';
 
 import '../bookings_screen.dart';
@@ -31,7 +32,7 @@ class HomeDrawer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "User Name",
+                    App.user.name,
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: textColor,
                         ),
@@ -64,7 +65,7 @@ class HomeDrawer extends StatelessWidget {
             ListTile(
               title: Text("Log out", style: TextStyle(color: textColor)),
               onTap: () {
-                context.read<AuthProvider>().signOut(context);
+                context.read<AuthUserProvider>().signOut(context);
               },
             ),
           ],

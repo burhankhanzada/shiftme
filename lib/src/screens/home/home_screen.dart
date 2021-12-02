@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shiftme/src/providers/auth_provider.dart';
+import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:shiftme/src/screens/home/drawer.dart';
 import 'package:shiftme/src/screens/tranport_details_screen.dart';
 import 'package:spaces/spaces.dart';
@@ -14,7 +14,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   build(context) {
-    return Consumer<AuthProvider>(
+    AuthUserProvider auth = context.read<AuthUserProvider>();
+
+    print(auth.firebaseUser!.uid);
+    print(auth.firebaseUser!.phoneNumber);
+    print(auth.firebaseUser!.displayName);
+    print(auth.firebaseUser!.photoURL);
+
+    return Consumer<AuthUserProvider>(
       builder: (context, loginStore, child) {
         return Scaffold(
           appBar: AppBar(

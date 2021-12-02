@@ -1,20 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shiftme/src/screens/home/home_screen.dart';
-import 'package:shiftme/src/screens/login_screen.dart';
+import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
+import 'package:shiftme/src/screens/setup_profile.dart';
+import 'package:shiftme/src/screens/sign_in/enter_otp_screen.dart';
 
-enum LoginView {
-  enterNumber,
-  enterOTP,
-}
-
-class AuthProvider with ChangeNotifier {
+class AuthUserProvider with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   late User? firebaseUser = _auth.currentUser;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  var currentView = LoginView.enterNumber;
+  final numberScaffoldKey = GlobalKey<ScaffoldState>();
+  final otpScaffoldKey = GlobalKey<ScaffoldState>();
 
   var isLoading = false;
 
@@ -33,14 +29,17 @@ class AuthProvider with ChangeNotifier {
         signInWithCredential(context, phonrAuthCredential);
       },
       verificationFailed: (firebaseAuthException) {
-        currentView = LoginView.enterNumber;
-
         showSnackbar(firebaseAuthException.message!);
       },
-      codeSent: (verificationId, resendToken) {
+      codeSent: (verificationId, resendToken) async {
         isLoading = false;
-        currentView = LoginView.enterOTP;
+
         _verificationId = verificationId;
+
+        await Navigator.of(context).push(
+          MaterialPageRoute(builder: (contex) => const OTPScreen()),
+        );
+
         notifyListeners();
       },
       codeAutoRetrievalTimeout: (verificationId) {
@@ -51,7 +50,7 @@ class AuthProvider with ChangeNotifier {
 
   showSnackbar(text) {
     isLoading = false;
-    ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(
+    ScaffoldMessenger.of(numberScaffoldKey.currentContext!).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.red,
@@ -71,9 +70,8 @@ class AuthProvider with ChangeNotifier {
       },
     ).catchError((error) {
       isLoading = false;
-      currentView = LoginView.enterNumber;
 
-      ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(
+      ScaffoldMessenger.of(numberScaffoldKey.currentContext!).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.red,
@@ -100,28 +98,36 @@ class AuthProvider with ChangeNotifier {
   }
 
   onAuthenticationSuccessful(context, userCredential) async {
+    print('onAuthenticationSuccessful');
+
     isLoading = false;
 
     if (userCredential.user != null) {
       firebaseUser = userCredential.user;
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-        (Route<dynamic> route) => false,
-      );
+
+      if (firebaseUser!.displayName == null) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (contex) => const SetupProfile()),
+          (route) => false,
+        );
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (contex) => const HomeScreen()),
+          (route) => false,
+        );
+      }
     }
 
     notifyListeners();
   }
 
   signOut(context) async {
-    currentView = LoginView.enterNumber;
-
     await _auth.signOut();
     firebaseUser = null;
 
     await Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-      (Route<dynamic> route) => false,
+      MaterialPageRoute(builder: (contex) => const LoginScreen()),
+      (route) => false,
     );
 
     notifyListeners();
