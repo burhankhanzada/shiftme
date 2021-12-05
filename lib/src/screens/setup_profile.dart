@@ -52,7 +52,7 @@ class SetupProfile extends StatelessWidget {
                       controller: _nameController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'name',
+                        labelText: 'Name',
                       ),
                     ),
                   ],
@@ -71,16 +71,17 @@ class SetupProfile extends StatelessWidget {
 
           firebaseUser.updateDisplayName(name);
 
+          final uid = firebaseUser.uid;
+
           App.user = User(
+            uid: uid,
             name: _nameController.text,
             phoneNumber: firebaseUser.phoneNumber!,
           );
 
-          final uid = firebaseUser.uid;
-
           final users = FirebaseFirestore.instance.collection('users');
 
-          users.doc(uid).set(App.user.toMap());
+          users.doc(uid).set(App.user!.toMap());
 
           await Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (contex) => const HomeScreen()),

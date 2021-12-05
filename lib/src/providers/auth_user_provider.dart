@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shiftme/src/app.dart';
 import 'package:shiftme/src/screens/home/home_screen.dart';
 import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
 import 'package:shiftme/src/screens/setup_profile.dart';
 import 'package:shiftme/src/screens/sign_in/enter_otp_screen.dart';
+import 'package:shiftme/src/utils/firbase.dart';
 
 class AuthUserProvider with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
@@ -98,24 +100,26 @@ class AuthUserProvider with ChangeNotifier {
   }
 
   onAuthenticationSuccessful(context, userCredential) async {
-    print('onAuthenticationSuccessful');
-
-    isLoading = false;
-
     if (userCredential.user != null) {
       firebaseUser = userCredential.user;
 
-      if (firebaseUser!.displayName == null) {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (contex) => const SetupProfile()),
-          (route) => false,
-        );
-      } else {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (contex) => const HomeScreen()),
-          (route) => false,
-        );
-      }
+      usersRef.doc(firebaseUser!.uid).get().then((value) {
+        isLoading = false;
+
+        if (value.exists) {
+          App.user = value.data()!;
+
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (contex) => const HomeScreen()),
+            (route) => false,
+          );
+        } else {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (contex) => const SetupProfile()),
+            (route) => false,
+          );
+        }
+      });
     }
 
     notifyListeners();

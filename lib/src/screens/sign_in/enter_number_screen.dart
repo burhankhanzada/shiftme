@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
@@ -14,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   PhoneNumber number = PhoneNumber(isoCode: 'PK');
+
+  final _numberController = MaskedTextController(mask: '0000 0000000');
 
   @override
   build(context) {
@@ -36,7 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         InternationalPhoneNumberInput(
                           countries: const ['PK'],
-                          hintText: '03XXXXXXXX',
+                          hintText: '03XX XXXXXXX',
+                          textFieldController: _numberController,
                           initialValue: number,
                           autoValidateMode: AutovalidateMode.onUserInteraction,
                           onInputChanged: (number) {

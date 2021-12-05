@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/app.dart';
+import 'package:shiftme/src/models/user.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
+import 'package:shiftme/src/screens/bookings_screen.dart';
+import 'package:shiftme/src/screens/profile/customer_profile.dart';
+import 'package:shiftme/src/screens/profile/transporter_profile.dart';
 import 'package:spaces/spaces.dart';
-
-import '../bookings_screen.dart';
-import '../profile_screen.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({key}) : super(key: key);
@@ -32,7 +33,7 @@ class HomeDrawer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    App.user.name,
+                    App.user!.name,
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: textColor,
                         ),
@@ -46,7 +47,12 @@ class HomeDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
+                    builder: (context) {
+                      if (App.user!.type == UserType.transporter) {
+                        return const TransporterProfileScreen();
+                      }
+                      return const CustomerProfileScreen();
+                    },
                   ),
                 );
               },

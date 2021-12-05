@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/constants/color_constants.dart';
+import 'package:shiftme/src/models/transporter.dart';
+import 'package:shiftme/src/models/user.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:shiftme/src/screens/home/home_screen.dart';
 import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
+import 'package:shiftme/src/utils/firbase.dart';
 import 'package:spaces/spaces.dart';
-
-import 'models/user.dart';
 
 class App extends StatelessWidget {
   const App({key}) : super(key: key);
 
-  static late User user;
+  static User? user;
+  static Transporter? transporter;
 
   @override
   build(context) {
@@ -39,6 +41,26 @@ class App extends StatelessWidget {
         home: Consumer<AuthUserProvider>(
           builder: (context, auth, child) {
             if (auth.isAuthenticated()) {
+              final uid = auth.firebaseUser!.uid;
+
+              usersRef.doc(uid).get().then(
+                (value) {
+                  if (value.exists) {
+                    App.user = value.data()!;
+
+                    if (user!.type == UserType.transporter) {
+                      transportersRef.doc(uid).get().then(
+                        (value) {
+                          transporter = value.data()!;
+                        },
+                      );
+                    }
+
+                    return const HomeScreen();
+                  }
+                },
+              );
+
               return const HomeScreen();
             } else {
               return const LoginScreen();

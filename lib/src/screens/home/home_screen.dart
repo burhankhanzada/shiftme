@@ -14,13 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   build(context) {
-    AuthUserProvider auth = context.read<AuthUserProvider>();
-
-    print(auth.firebaseUser!.uid);
-    print(auth.firebaseUser!.phoneNumber);
-    print(auth.firebaseUser!.displayName);
-    print(auth.firebaseUser!.photoURL);
-
     return Consumer<AuthUserProvider>(
       builder: (context, loginStore, child) {
         return Scaffold(
