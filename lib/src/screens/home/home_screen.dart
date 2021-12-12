@@ -5,15 +5,11 @@ import 'package:shiftme/src/screens/home/drawer.dart';
 import 'package:shiftme/src/screens/tranport_details_screen.dart';
 import 'package:spaces/spaces.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({key}) : super(key: key);
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
-  build(context) {
+  Widget build(context) {
     return Consumer<AuthUserProvider>(
       builder: (context, loginStore, child) {
         return Scaffold(
@@ -70,11 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Shezor"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Shezor'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),
@@ -97,11 +93,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Ravi"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Ravi'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),
@@ -124,11 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Mazda"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Mazda'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),

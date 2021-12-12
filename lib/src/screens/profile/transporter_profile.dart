@@ -6,24 +6,10 @@ class TransporterProfileScreen extends StatelessWidget {
   const TransporterProfileScreen({key}) : super(key: key);
 
   @override
-  build(context) {
+  Widget build(context) {
     final user = App.user!;
 
-    late final uid = user.uid!;
-
-    late final name = user.name;
-
-    late final number = user.phoneNumber;
-
-    late final type = user.type;
-
     final transporter = App.transporter!;
-
-    late final cnic = transporter.cnic;
-    late final foundAt = transporter.foundAt;
-
-    late final startTime = transporter.startTiming;
-    late final endTime = transporter.endTiming;
 
     late final vehicileName = transporter.vehicle.name;
     late final loadingCapcaity = transporter.vehicle.loadingCapcaity;
@@ -32,7 +18,7 @@ class TransporterProfileScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text("Transporter Profile"),
+        title: const Text('Transporter Profile'),
         backgroundColor: Theme.of(context).canvasColor,
         foregroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -46,7 +32,6 @@ class TransporterProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: Alignment.center,
                       child: CircleAvatar(
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
@@ -60,18 +45,16 @@ class TransporterProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Align(
-                      alignment: Alignment.center,
                       child: Text(
-                        name,
+                        user.name,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                       ),
                     ),
                     Align(
-                      alignment: Alignment.center,
                       child: Text(
-                        number,
+                        user.phoneNumber,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               fontWeight: FontWeight.normal,
                               color: Theme.of(context).colorScheme.primary,
@@ -79,34 +62,35 @@ class TransporterProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "CNIC: $cnic",
+                      'CNIC: ${transporter.cnic}',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Availibilty: $startTime - $endTime",
+                      // ignore: lines_longer_than_80_chars
+                      'Availibilty: ${transporter.startTiming} - ${transporter.endTiming}',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Vehicle: $vehicileName",
+                      'Vehicle: $vehicileName',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Load Capacity: $loadingCapcaity",
+                      'Load Capacity: $loadingCapcaity',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Can be found at",
+                      'Can be found at',
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      foundAt,
+                      transporter.foundAt,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Text(
-                      "Can be deliver at",
+                      'Can be deliver at',
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1!

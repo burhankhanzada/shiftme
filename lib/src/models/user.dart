@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class UserType {
   static String customer = 'Customer';
   static String transporter = 'Transporter';
 }
 
+@immutable
 class User {
   final String? uid;
   final String name;
@@ -48,9 +51,9 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      uid: map['uid'] != null ? map['uid'] : null,
+      uid: map['uid'],
       name: map['name'],
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] : null,
+      imageUrl: map['imageUrl'],
       phoneNumber: map['phoneNumber'],
       type: map['type'],
     );

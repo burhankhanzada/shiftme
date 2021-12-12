@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:shiftme/src/models/vehicle.dart';
 
+@immutable
 class Transporter {
   final String cnic;
   final String foundAt;
@@ -13,7 +14,7 @@ class Transporter {
 
   final Vehicle vehicle;
 
-  Transporter({
+  const Transporter({
     required this.cnic,
     required this.foundAt,
     required this.startTiming,

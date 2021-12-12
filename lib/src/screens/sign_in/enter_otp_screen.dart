@@ -18,7 +18,7 @@ class _OTPScreenState extends State<OTPScreen> {
   late String _otpCode;
 
   @override
-  build(context) {
+  Widget build(context) {
     final selectedDecoration = BoxDecoration(
       // color: Colors.grey.shade300,
       borderRadius: BorderRadius.circular(8),
@@ -53,9 +53,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   ? const CircularProgressIndicator()
                   : SpacedColumn.extraBig(
                       mainAxisSize: MainAxisSize.min,
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16),
                       children: [
-                        Text("Enter OTP Code",
+                        Text('Enter OTP Code',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline6!
@@ -87,9 +87,6 @@ class _OTPScreenState extends State<OTPScreen> {
             child: const Icon(Icons.arrow_forward),
             onPressed: () async {
               _otpCode = _pinPutController.text;
-
-              print('onSetup click');
-
               auth.validateOtpAndLogin(context, _otpCode);
             },
           ),

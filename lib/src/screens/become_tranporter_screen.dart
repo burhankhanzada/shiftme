@@ -6,6 +6,7 @@ import 'package:shiftme/src/models/transporter.dart';
 import 'package:shiftme/src/models/user.dart';
 import 'package:shiftme/src/models/vehicle.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
+import 'package:shiftme/src/screens/home/home_screen.dart';
 import 'package:shiftme/src/utils/firbase.dart';
 import 'package:spaces/spaces.dart';
 
@@ -32,8 +33,8 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
   late String endTime = endTimings[0];
 
   List<Vehicle> vehicles = [
-    Vehicle(name: 'Suzuki Ravi', loadingCapcaity: '600 Kg'),
-    Vehicle(name: 'Hyundai  Shehzore', loadingCapcaity: '3,500 Kg'),
+    const Vehicle(name: 'Suzuki Ravi', loadingCapcaity: '600 Kg'),
+    const Vehicle(name: 'Hyundai  Shehzore', loadingCapcaity: '3,500 Kg'),
   ];
 
   late Vehicle vehicle = vehicles[0];
@@ -46,7 +47,7 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
   var isLoding = false;
 
   @override
-  build(context) {
+  Widget build(context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -58,11 +59,13 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () async {
-              isLoding = true;
+              setState(() {
+                isLoding = true;
+              });
 
               vehicle = vehicle.copyWith(vehicleNo: _vechileNoController.text);
 
-              Transporter transporter = Transporter(
+              final transporter = Transporter(
                 cnic: _cnicController.text,
                 foundAt: _foundAtController.text,
                 startTiming: startTime,
@@ -77,17 +80,17 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
 
               await usersRef.doc(uid).update({'type': UserType.transporter});
 
-              usersRef.doc(uid).get().then(
-                (value) {
-                  if (value.exists) {
-                    App.user = value.data()!;
-                  }
-                },
+              App.user = App.user!.copyWith(type: UserType.transporter);
+
+              App.transporter = transporter;
+
+              setState(() {
+                isLoding = false;
+              });
+
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (contex) => const HomeScreen()),
               );
-
-              isLoding = false;
-
-              Navigator.pop(context);
             },
           ),
         ],
@@ -110,9 +113,9 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
                           value: startTime,
                           items: startTimings
                               .map(
-                                (item) => DropdownMenuItem<String>(
+                                (item) => DropdownMenuItem(
                                   value: item,
-                                  child: Text(item.toString()),
+                                  child: Text(item),
                                 ),
                               )
                               .toList(),
@@ -127,9 +130,9 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
                           value: endTime,
                           items: endTimings
                               .map(
-                                (item) => DropdownMenuItem<String>(
+                                (item) => DropdownMenuItem(
                                   value: item,
-                                  child: Text(item.toString()),
+                                  child: Text(item),
                                 ),
                               )
                               .toList(),
@@ -208,7 +211,7 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
                       ),
                     ),
                     Text(
-                      "Can deliver to",
+                      'Can deliver to',
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1!
@@ -233,12 +236,10 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
                           ),
                         ),
                         ElevatedButton(
-                          child: const Text("Add"),
+                          child: const Text('Add'),
                           onPressed: () {
                             setState(() {
                               deliverTo.add(_deliverToController.text);
-
-                              print(deliverTo);
                             });
                           },
                         ),

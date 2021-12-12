@@ -16,7 +16,7 @@ class App extends StatelessWidget {
   static Transporter? transporter;
 
   @override
-  build(context) {
+  Widget build(context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthUserProvider>(
@@ -26,7 +26,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         builder: (context, child) => Spacing.fixed(
-          data: SpacingData.generate(10.0),
+          data: SpacingData.generate(10),
           child: child!,
         ),
         theme: ThemeData(

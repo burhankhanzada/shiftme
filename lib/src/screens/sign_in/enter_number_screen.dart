@@ -6,20 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:spaces/spaces.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
+  Widget build(context) {
+    var number = PhoneNumber(isoCode: 'PK');
 
-class _LoginScreenState extends State<LoginScreen> {
-  PhoneNumber number = PhoneNumber(isoCode: 'PK');
+    final numberController = MaskedTextController(mask: '0000 0000000');
 
-  final _numberController = MaskedTextController(mask: '0000 0000000');
-
-  @override
-  build(context) {
     return Consumer<AuthUserProvider>(
       builder: (context, auth, child) {
         return Scaffold(
@@ -40,11 +35,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         InternationalPhoneNumberInput(
                           countries: const ['PK'],
                           hintText: '03XX XXXXXXX',
-                          textFieldController: _numberController,
+                          textFieldController: numberController,
                           initialValue: number,
                           autoValidateMode: AutovalidateMode.onUserInteraction,
-                          onInputChanged: (number) {
-                            this.number = number;
+                          onInputChanged: (newNumber) {
+                            number = newNumber;
                           },
                         )
                       ],

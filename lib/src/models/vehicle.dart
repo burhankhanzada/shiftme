@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
+@immutable
 class Vehicle {
   final String name;
   final String loadingCapcaity;
   final String? vehicleNo;
 
-  Vehicle({
+  const Vehicle({
     required this.name,
     required this.loadingCapcaity,
     this.vehicleNo,
@@ -35,7 +38,7 @@ class Vehicle {
     return Vehicle(
       name: map['name'],
       loadingCapcaity: map['loadingCapcaity'],
-      vehicleNo: map['vehicleNo'] != null ? map['vehicleNo'] : null,
+      vehicleNo: map['vehicleNo'],
     );
   }
 

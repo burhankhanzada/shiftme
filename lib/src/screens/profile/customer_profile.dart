@@ -7,16 +7,8 @@ class CustomerProfileScreen extends StatelessWidget {
   const CustomerProfileScreen({key}) : super(key: key);
 
   @override
-  build(context) {
+  Widget build(context) {
     final user = App.user!;
-
-    final uid = user.uid!;
-
-    final name = user.name;
-
-    final number = user.phoneNumber;
-
-    final type = user.type;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +30,6 @@ class CustomerProfileScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Align(
-                        alignment: Alignment.center,
                         child: CircleAvatar(
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
@@ -53,18 +44,16 @@ class CustomerProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Align(
-                      alignment: Alignment.center,
                       child: Text(
-                        name,
+                        user.name,
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                       ),
                     ),
                     Align(
-                      alignment: Alignment.center,
                       child: Text(
-                        number,
+                        user.phoneNumber,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               fontWeight: FontWeight.normal,
                               color: Theme.of(context).colorScheme.primary,
@@ -79,7 +68,7 @@ class CustomerProfileScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
-              child: const Text("Become Tranporter"),
+              child: const Text('Become Tranporter'),
               onPressed: () {
                 Navigator.push(
                   context,

@@ -2,13 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shiftme/src/app.dart';
 import 'package:shiftme/src/screens/home/home_screen.dart';
-import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
 import 'package:shiftme/src/screens/setup_profile.dart';
+import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
 import 'package:shiftme/src/screens/sign_in/enter_otp_screen.dart';
 import 'package:shiftme/src/utils/firbase.dart';
 
 class AuthUserProvider with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
+
   late User? firebaseUser = _auth.currentUser;
 
   final numberScaffoldKey = GlobalKey<ScaffoldState>();
@@ -20,7 +21,7 @@ class AuthUserProvider with ChangeNotifier {
 
   bool isAuthenticated() => firebaseUser != null;
 
-  verifyPhoneNumberAndSendCode(context, phoneNumber) async {
+  Future<void> verifyPhoneNumberAndSendCode(context, phoneNumber) async {
     isLoading = true;
     notifyListeners();
 
@@ -50,7 +51,7 @@ class AuthUserProvider with ChangeNotifier {
     );
   }
 
-  showSnackbar(text) {
+  void showSnackbar(text) {
     isLoading = false;
     ScaffoldMessenger.of(numberScaffoldKey.currentContext!).showSnackBar(
       SnackBar(
@@ -65,7 +66,10 @@ class AuthUserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  signInWithCredential(context, phonrAuthCredential) async {
+  void signInWithCredential(
+    BuildContext context,
+    PhoneAuthCredential phonrAuthCredential,
+  ) async {
     await _auth.signInWithCredential(phonrAuthCredential).then(
       (userCredential) {
         onAuthenticationSuccessful(context, userCredential);
@@ -88,7 +92,7 @@ class AuthUserProvider with ChangeNotifier {
     });
   }
 
-  validateOtpAndLogin(context, smsCode) {
+  void validateOtpAndLogin(context, smsCode) {
     isLoading = true;
 
     final credential = PhoneAuthProvider.credential(
@@ -99,11 +103,14 @@ class AuthUserProvider with ChangeNotifier {
     signInWithCredential(context, credential);
   }
 
-  onAuthenticationSuccessful(context, userCredential) async {
+  Future<void> onAuthenticationSuccessful(
+    BuildContext context,
+    UserCredential userCredential,
+  ) async {
     if (userCredential.user != null) {
       firebaseUser = userCredential.user;
 
-      usersRef.doc(firebaseUser!.uid).get().then((value) {
+      await usersRef.doc(firebaseUser!.uid).get().then((value) {
         isLoading = false;
 
         if (value.exists) {
@@ -125,7 +132,7 @@ class AuthUserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  signOut(context) async {
+  Future<void> signOut(context) async {
     await _auth.signOut();
     firebaseUser = null;
 

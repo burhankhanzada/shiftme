@@ -5,11 +5,11 @@ class BookingsScreen extends StatelessWidget {
   const BookingsScreen({key}) : super(key: key);
 
   @override
-  build(context) {
+  Widget build(context) {
     final tabs = ['In Progress', 'Completed'];
 
-    final tabLabelColor;
-    final tabIndcatorColor;
+    final Color tabLabelColor;
+    final Color tabIndcatorColor;
 
     if (Theme.of(context).colorScheme.brightness == Brightness.dark) {
       tabLabelColor = Theme.of(context).colorScheme.onBackground;
@@ -52,11 +52,11 @@ class BookingsScreen extends StatelessWidget {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Shezor"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Shezor'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),
@@ -68,11 +68,11 @@ class BookingsScreen extends StatelessWidget {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Ravi"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Ravi'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),
@@ -84,11 +84,11 @@ class BookingsScreen extends StatelessWidget {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Mazda"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Mazda'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),
@@ -100,11 +100,11 @@ class BookingsScreen extends StatelessWidget {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Mazda"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Mazda'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),
@@ -116,11 +116,11 @@ class BookingsScreen extends StatelessWidget {
                             padding: EdgeInsets.all(8),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Driver Name: Ali"),
-                              Text("Vechile: Mazda"),
-                              Text("Load Capacity: 500kg"),
-                              Text("Availability: 10AM - 8PM"),
-                              Text("Starting Price: 500"),
+                              Text('Driver Name: Ali'),
+                              Text('Vechile: Mazda'),
+                              Text('Load Capacity: 500kg'),
+                              Text('Availability: 10AM - 8PM'),
+                              Text('Starting Price: 500'),
                             ],
                           ),
                         ),

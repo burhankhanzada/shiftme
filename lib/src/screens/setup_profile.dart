@@ -13,7 +13,7 @@ class SetupProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _nameController = TextEditingController();
+    final nameController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +35,6 @@ class SetupProfile extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Align(
-                        alignment: Alignment.center,
                         child: CircleAvatar(
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
@@ -49,7 +48,7 @@ class SetupProfile extends StatelessWidget {
                       ),
                     ),
                     TextField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Name',
@@ -67,21 +66,21 @@ class SetupProfile extends StatelessWidget {
         onPressed: () async {
           final firebaseUser = context.read<AuthUserProvider>().firebaseUser!;
 
-          final name = _nameController.text;
+          final name = nameController.text;
 
-          firebaseUser.updateDisplayName(name);
+          await firebaseUser.updateDisplayName(name);
 
           final uid = firebaseUser.uid;
 
           App.user = User(
             uid: uid,
-            name: _nameController.text,
+            name: nameController.text,
             phoneNumber: firebaseUser.phoneNumber!,
           );
 
           final users = FirebaseFirestore.instance.collection('users');
 
-          users.doc(uid).set(App.user!.toMap());
+          await users.doc(uid).set(App.user!.toMap());
 
           await Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (contex) => const HomeScreen()),

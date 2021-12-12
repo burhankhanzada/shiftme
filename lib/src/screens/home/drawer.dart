@@ -12,7 +12,7 @@ class HomeDrawer extends StatelessWidget {
   const HomeDrawer({key}) : super(key: key);
 
   @override
-  build(context) {
+  Widget build(context) {
     final textColor = Theme.of(context).colorScheme.primary;
 
     return Drawer(
@@ -20,7 +20,7 @@ class HomeDrawer extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16),
               child: SpacedRow.semiBig(
                 children: [
                   CircleAvatar(
@@ -42,7 +42,7 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("Profile", style: TextStyle(color: textColor)),
+              title: Text('Profile', style: TextStyle(color: textColor)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -58,7 +58,7 @@ class HomeDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text("Bookings", style: TextStyle(color: textColor)),
+              title: Text('Bookings', style: TextStyle(color: textColor)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -69,7 +69,7 @@ class HomeDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text("Log out", style: TextStyle(color: textColor)),
+              title: Text('Log out', style: TextStyle(color: textColor)),
               onTap: () {
                 context.read<AuthUserProvider>().signOut(context);
               },
