@@ -65,7 +65,10 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
 
               vehicle = vehicle.copyWith(vehicleNo: _vechileNoController.text);
 
+              final uid = context.read<AuthUserProvider>().firebaseUser!.uid;
+
               final transporter = Transporter(
+                userID: uid,
                 cnic: _cnicController.text,
                 foundAt: _foundAtController.text,
                 startTiming: startTime,
@@ -73,8 +76,6 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
                 deliverTo: deliverTo,
                 vehicle: vehicle,
               );
-
-              final uid = context.read<AuthUserProvider>().firebaseUser!.uid;
 
               await transportersRef.doc(uid).set(transporter);
 
@@ -225,7 +226,6 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
                     SpacedRow(
                       children: [
                         Flexible(
-                          flex: 1,
                           child: TextField(
                             controller: _deliverToController,
                             decoration: const InputDecoration(

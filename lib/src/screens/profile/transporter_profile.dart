@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:shiftme/src/app.dart';
+import 'package:shiftme/src/models/transporter.dart';
+import 'package:shiftme/src/models/user.dart';
 import 'package:spaces/spaces.dart';
 
 class TransporterProfileScreen extends StatelessWidget {
-  const TransporterProfileScreen({key}) : super(key: key);
+  TransporterProfileScreen({key, User? user, Transporter? transporter})
+      : user = user ?? App.user!,
+        transporter = transporter ?? App.transporter!,
+        super(key: key);
+
+  final User user;
+
+  final Transporter transporter;
 
   @override
   Widget build(context) {
-    final user = App.user!;
-
-    final transporter = App.transporter!;
-
     late final vehicileName = transporter.vehicle.name;
     late final loadingCapcaity = transporter.vehicle.loadingCapcaity;
 

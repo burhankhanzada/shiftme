@@ -6,6 +6,7 @@ import 'package:shiftme/src/models/vehicle.dart';
 
 @immutable
 class Transporter {
+  final String userID;
   final String cnic;
   final String foundAt;
   final String startTiming;
@@ -15,6 +16,7 @@ class Transporter {
   final Vehicle vehicle;
 
   const Transporter({
+    required this.userID,
     required this.cnic,
     required this.foundAt,
     required this.startTiming,
@@ -24,6 +26,7 @@ class Transporter {
   });
 
   Transporter copyWith({
+    String? userID,
     String? cnic,
     String? foundAt,
     String? startTiming,
@@ -32,6 +35,7 @@ class Transporter {
     Vehicle? vehicle,
   }) {
     return Transporter(
+      userID: userID ?? this.userID,
       cnic: cnic ?? this.cnic,
       foundAt: foundAt ?? this.foundAt,
       startTiming: startTiming ?? this.startTiming,
@@ -43,6 +47,7 @@ class Transporter {
 
   Map<String, dynamic> toMap() {
     return {
+      'userID': userID,
       'cnic': cnic,
       'foundAt': foundAt,
       'startTiming': startTiming,
@@ -54,10 +59,11 @@ class Transporter {
 
   factory Transporter.fromMap(Map<String, dynamic> map) {
     return Transporter(
-      cnic: map['cnic'],
-      foundAt: map['foundAt'],
-      startTiming: map['startTiming'],
-      endTiming: map['endTiming'],
+      userID: map['userID'] ?? '',
+      cnic: map['cnic'] ?? '',
+      foundAt: map['foundAt'] ?? '',
+      startTiming: map['startTiming'] ?? '',
+      endTiming: map['endTiming'] ?? '',
       deliverTo: List<String>.from(map['deliverTo']),
       vehicle: Vehicle.fromMap(map['vehicle']),
     );
@@ -70,7 +76,7 @@ class Transporter {
 
   @override
   String toString() {
-    return 'Transporter(cnic: $cnic, foundAt: $foundAt, startTiming: $startTiming, endTiming: $endTiming, deliverTo: $deliverTo, vehicle: $vehicle)';
+    return 'Transporter(userID: $userID, cnic: $cnic, foundAt: $foundAt, startTiming: $startTiming, endTiming: $endTiming, deliverTo: $deliverTo, vehicle: $vehicle)';
   }
 
   @override
@@ -78,6 +84,7 @@ class Transporter {
     if (identical(this, other)) return true;
 
     return other is Transporter &&
+        other.userID == userID &&
         other.cnic == cnic &&
         other.foundAt == foundAt &&
         other.startTiming == startTiming &&
@@ -88,7 +95,8 @@ class Transporter {
 
   @override
   int get hashCode {
-    return cnic.hashCode ^
+    return userID.hashCode ^
+        cnic.hashCode ^
         foundAt.hashCode ^
         startTiming.hashCode ^
         endTiming.hashCode ^

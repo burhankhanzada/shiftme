@@ -49,7 +49,7 @@ class HomeDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) {
                       if (App.user!.type == UserType.transporter) {
-                        return const TransporterProfileScreen();
+                        return TransporterProfileScreen();
                       }
                       return const CustomerProfileScreen();
                     },

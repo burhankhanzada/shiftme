@@ -66,11 +66,11 @@ class AuthUserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void signInWithCredential(
+  Future<void> signInWithCredential(
     BuildContext context,
-    PhoneAuthCredential phonrAuthCredential,
+    PhoneAuthCredential phoneAuthCredential,
   ) async {
-    await _auth.signInWithCredential(phonrAuthCredential).then(
+    await _auth.signInWithCredential(phoneAuthCredential).then(
       (userCredential) {
         onAuthenticationSuccessful(context, userCredential);
       },
