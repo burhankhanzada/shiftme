@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shiftme/src/app.dart';
+import 'package:shiftme/src/components/label_value.dart';
 import 'package:shiftme/src/models/transporter.dart';
 import 'package:shiftme/src/models/user.dart';
 import 'package:spaces/spaces.dart';
@@ -16,8 +17,9 @@ class TransporterProfileScreen extends StatelessWidget {
 
   @override
   Widget build(context) {
-    late final vehicileName = transporter.vehicle.name;
-    late final loadingCapcaity = transporter.vehicle.loadingCapcaity;
+    late final vehicle = transporter.vehicle;
+
+    final textStyle = Theme.of(context).textTheme.subtitle1;
 
     return Scaffold(
       appBar: AppBar(
@@ -66,40 +68,47 @@ class TransporterProfileScreen extends StatelessWidget {
                             ),
                       ),
                     ),
-                    Text(
-                      'CNIC: ${transporter.cnic}',
-                      style: Theme.of(context).textTheme.subtitle1,
+                    const SizedBox(height: 8),
+                    LabelValueWidget(
+                      label: 'CNIC:',
+                      value: transporter.cnic,
+                      textStyle: textStyle,
                     ),
-                    Text(
-                      // ignore: lines_longer_than_80_chars
-                      'Availibilty: ${transporter.startTiming} - ${transporter.endTiming}',
-                      style: Theme.of(context).textTheme.subtitle1,
+                    LabelValueWidget(
+                      label: 'Availibilty:',
+                      value:
+                          '${transporter.startTiming} - ${transporter.endTiming}',
+                      textStyle: textStyle,
                     ),
-                    Text(
-                      'Vehicle: $vehicileName',
-                      style: Theme.of(context).textTheme.subtitle1,
+                    LabelValueWidget(
+                      label: 'Vechile:',
+                      value: vehicle.name,
+                      textStyle: textStyle,
                     ),
-                    Text(
-                      'Load Capacity: $loadingCapcaity',
-                      style: Theme.of(context).textTheme.subtitle1,
+                    LabelValueWidget(
+                      label: 'Load Capacity:',
+                      value: vehicle.loadingCapcaity,
+                      textStyle: textStyle,
                     ),
+                    const SizedBox(height: 8),
                     Text(
                       'Can be found at',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                     ),
                     Text(
                       transporter.foundAt,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
+                    const SizedBox(height: 8),
                     Text(
                       'Can be deliver at',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                     ),
                     for (var item in transporter.deliverTo)
                       Text(

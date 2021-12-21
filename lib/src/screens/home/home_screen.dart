@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/app.dart';
+import 'package:shiftme/src/components/label_value.dart';
 import 'package:shiftme/src/models/transporter.dart';
 import 'package:shiftme/src/models/user.dart';
 import 'package:shiftme/src/models/vehicle.dart';
@@ -28,6 +29,19 @@ class _HomeScreenState extends State<HomeScreen> {
   String from = '';
   String to = '';
 
+  final startTimings = ['8 AM', '9 AM', '10 AM', '11 AM', '12 AM'];
+  final endTimings = ['5 PM', '6 PM', '7 PM', '8 PM', '9 PM'];
+
+  var startTime;
+  var endTime;
+
+  List<Vehicle> vehicles = [
+    const Vehicle(name: 'Suzuki Ravi', loadingCapcaity: '600 Kg'),
+    const Vehicle(name: 'Hyundai  Shehzore', loadingCapcaity: '3,500 Kg'),
+  ];
+
+  var vehicle;
+
   Future<void> getTransporters() async {
     final transposterFuture = await transportersRef.get();
 
@@ -50,21 +64,53 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void filterList() {
-    if (from.isNotEmpty && to.isNotEmpty) {
-      filteredList = list
+    // if (from.isNotEmpty && to.isNotEmpty) {
+    //   filteredList = list
+    //       .where((element) => element.transporter.foundAt.contains(from))
+    //       .where((element) => element.transporter.deliverTo.contains(to))
+    //       .toList();
+    // } else if (from.isNotEmpty && to.isEmpty) {
+    //   filteredList = list
+    //       .where((element) => element.transporter.foundAt.contains(from))
+    //       .toList();
+    // } else if (from.isEmpty && to.isNotEmpty) {
+    //   filteredList = list
+    //       .where((element) => element.transporter.deliverTo.contains(to))
+    //       .toList();
+    // } else {
+    //   filteredList = list;
+    // }
+
+    filteredList = list;
+
+    if (from.isNotEmpty) {
+      filteredList = filteredList
           .where((element) => element.transporter.foundAt.contains(from))
+          .toList();
+    }
+
+    if (to.isNotEmpty) {
+      filteredList = filteredList
           .where((element) => element.transporter.deliverTo.contains(to))
           .toList();
-    } else if (from.isNotEmpty && to.isEmpty) {
-      filteredList = list
-          .where((element) => element.transporter.foundAt.contains(from))
+    }
+
+    if (startTime != null) {
+      filteredList = filteredList
+          .where((element) => element.transporter.startTiming == startTime)
           .toList();
-    } else if (from.isEmpty && to.isNotEmpty) {
-      filteredList = list
-          .where((element) => element.transporter.deliverTo.contains(to))
+    }
+
+    if (endTime != null) {
+      filteredList = filteredList
+          .where((element) => element.transporter.endTiming == endTime)
           .toList();
-    } else {
-      filteredList = list;
+    }
+
+    if (vehicle != null) {
+      filteredList = filteredList
+          .where((element) => element.transporter.vehicle == vehicle)
+          .toList();
     }
   }
 
@@ -92,7 +138,128 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               IconButton(
                 icon: const Icon(Icons.filter_list),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        insetPadding: const EdgeInsets.all(16),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: SpacedColumn(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Filter Search',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                              ),
+                              SpacedColumn(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Availibility Timings'),
+                                      DropdownButton<String>(
+                                        value: startTime,
+                                        items: startTimings
+                                            .map(
+                                              (item) => DropdownMenuItem(
+                                                value: item,
+                                                child: Text(item),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            startTime = value!;
+                                          });
+                                        },
+                                      ),
+                                      const Text('to'),
+                                      DropdownButton<String>(
+                                        value: endTime,
+                                        items: endTimings
+                                            .map(
+                                              (item) => DropdownMenuItem(
+                                                value: item,
+                                                child: Text(item),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            endTime = value!;
+                                          });
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Vehicle'),
+                                      DropdownButton<Vehicle>(
+                                        value: vehicle,
+                                        selectedItemBuilder:
+                                            (BuildContext context) {
+                                          return vehicles.map((item) {
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(item.name),
+                                                const SizedBox(width: 8),
+                                                Text(item.loadingCapcaity),
+                                              ],
+                                            );
+                                          }).toList();
+                                        },
+                                        items: vehicles
+                                            .map(
+                                              (item) =>
+                                                  DropdownMenuItem<Vehicle>(
+                                                value: item,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(item.name),
+                                                    Text(item.loadingCapcaity),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(
+                                            () {
+                                              vehicle = value!;
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               )
             ],
           ),
@@ -189,12 +356,24 @@ class TransportCard extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Driver Name: ${user.name}'),
-              Text('Vechile: ${vehicle.name}'),
-              Text('Load Capacity: ${vehicle.loadingCapcaity}'),
-              Text(
-                  'Availability: ${transporter.startTiming} - ${transporter.endTiming}'),
-              Text('Can be found at: ${transporter.foundAt}'),
+              LabelValueWidget(label: 'Driver Name:', value: user.name),
+              LabelValueWidget(label: 'Vechile:', value: vehicle.name),
+              LabelValueWidget(
+                label: 'Load Capacity:',
+                value: vehicle.loadingCapcaity,
+              ),
+              LabelValueWidget(
+                label: 'Availability:',
+                value: '${transporter.startTiming} - ${transporter.endTiming}',
+              ),
+              LabelValueWidget(
+                label: 'Can be found at:',
+                value: transporter.foundAt,
+              ),
+              //  LabelValueWidget(
+              //   label: 'Can be deliver to:',
+              //   value: to,
+              // ),
             ],
           ),
         ),
