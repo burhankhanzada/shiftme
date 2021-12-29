@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shiftme/src/app.dart';
 import 'package:shiftme/src/components/label_value.dart';
 import 'package:shiftme/src/models/transporter.dart';
-import 'package:shiftme/src/models/user.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
 import 'package:shiftme/src/models/vehicle.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:shiftme/src/screens/home/drawer.dart';
@@ -13,14 +13,14 @@ import 'package:shiftme/src/screens/tranport_details_screen.dart';
 import 'package:shiftme/src/utils/firbase.dart';
 import 'package:spaces/spaces.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({key}) : super(key: key);
+class CustomerHomeScreen extends StatefulWidget {
+  const CustomerHomeScreen({key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CustomerHomeScreen> createState() => _CustomerHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   final List<TransportCard> list = [];
   List<TransportCard> filteredList = [];
 
@@ -330,7 +330,7 @@ class TransportCard extends StatelessWidget {
   const TransportCard({Key? key, required this.user, required this.transporter})
       : super(key: key);
 
-  final User user;
+  final ShiftMeUser user;
   final Transporter transporter;
 
   @override

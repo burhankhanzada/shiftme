@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:shiftme/src/app.dart';
 import 'package:shiftme/src/components/label_value.dart';
 import 'package:shiftme/src/models/transporter.dart';
-import 'package:shiftme/src/models/user.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
 import 'package:spaces/spaces.dart';
 
 class TransporterProfileScreen extends StatelessWidget {
-  TransporterProfileScreen({key, User? user, Transporter? transporter})
+  TransporterProfileScreen({key, ShiftMeUser? user, Transporter? transporter})
       : user = user ?? App.user!,
         transporter = transporter ?? App.transporter!,
         super(key: key);
 
-  final User user;
+  final ShiftMeUser user;
 
   final Transporter transporter;
 

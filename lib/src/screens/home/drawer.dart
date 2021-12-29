@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/app.dart';
-import 'package:shiftme/src/models/user.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:shiftme/src/screens/bookings_screen.dart';
 import 'package:shiftme/src/screens/profile/customer_profile.dart';

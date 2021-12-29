@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shiftme/src/app.dart';
-import 'package:shiftme/src/screens/home/home_screen.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
+import 'package:shiftme/src/screens/home/customer_home_screen.dart';
+import 'package:shiftme/src/screens/home/transporter_home_screen.dart';
 import 'package:shiftme/src/screens/setup_profile.dart';
 import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
 import 'package:shiftme/src/screens/sign_in/enter_otp_screen.dart';
@@ -66,30 +68,18 @@ class AuthUserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signInWithCredential(
-    BuildContext context,
-    PhoneAuthCredential phoneAuthCredential,
-  ) async {
-    await _auth.signInWithCredential(phoneAuthCredential).then(
-      (userCredential) {
+  Future<void> signInWithCredential(context, phoneAuthCredential) async {
+    try {
+      await _auth
+          .signInWithCredential(phoneAuthCredential)
+          .then((userCredential) {
         onAuthenticationSuccessful(context, userCredential);
-      },
-    ).catchError((error) {
+      });
+    } on FirebaseAuthException catch (e) {
       isLoading = false;
-
-      ScaffoldMessenger.of(numberScaffoldKey.currentContext!).showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.red,
-          content: Text(
-            error.message!,
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-      );
-
+      showSnackbar(e.message!);
       notifyListeners();
-    });
+    }
   }
 
   void validateOtpAndLogin(context, smsCode) {
@@ -104,32 +94,46 @@ class AuthUserProvider with ChangeNotifier {
   }
 
   Future<void> onAuthenticationSuccessful(
-    BuildContext context,
+    context,
     UserCredential userCredential,
   ) async {
-    if (userCredential.user != null) {
-      firebaseUser = userCredential.user;
-
-      await usersRef.doc(firebaseUser!.uid).get().then((value) {
-        isLoading = false;
-
-        if (value.exists) {
-          App.user = value.data()!;
-
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (contex) => const HomeScreen()),
-            (route) => false,
-          );
-        } else {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (contex) => const SetupProfile()),
-            (route) => false,
-          );
-        }
-      });
-    }
-
+    firebaseUser = userCredential.user;
+    getUserDataAndNavigateAccordingly(context);
     notifyListeners();
+  }
+
+  void getUserDataAndNavigateAccordingly(context) {
+    usersRef.doc(firebaseUser!.uid).get().then((value) {
+      isLoading = false;
+
+      if (value.exists) {
+        App.user = value.data()!;
+
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (contex) => getUserTypeScreen()),
+          (route) => false,
+        );
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (contex) => const SetupProfile()),
+          (route) => false,
+        );
+      }
+    });
+  }
+
+  Widget getUserTypeScreen() {
+    if (App.user!.type == UserType.customer) {
+      return const CustomerHomeScreen();
+    } else {
+      transportersRef.doc(firebaseUser!.uid).get().then(
+        (value) {
+          App.transporter = value.data()!;
+        },
+      );
+
+      return const TransporterHomeScreen();
+    }
   }
 
   Future<void> signOut(context) async {

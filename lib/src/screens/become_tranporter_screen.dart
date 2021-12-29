@@ -3,10 +3,10 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/app.dart';
 import 'package:shiftme/src/models/transporter.dart';
-import 'package:shiftme/src/models/user.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
 import 'package:shiftme/src/models/vehicle.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
-import 'package:shiftme/src/screens/home/home_screen.dart';
+import 'package:shiftme/src/screens/home/customer_home_screen.dart';
 import 'package:shiftme/src/utils/firbase.dart';
 import 'package:spaces/spaces.dart';
 
@@ -90,7 +90,8 @@ class _BecomeTransporterScreenState extends State<BecomeTransporterScreen> {
               });
 
               await Navigator.of(context).push(
-                MaterialPageRoute(builder: (contex) => const HomeScreen()),
+                MaterialPageRoute(
+                    builder: (contex) => const CustomerHomeScreen()),
               );
             },
           ),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -49,7 +48,8 @@ class LoginScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.arrow_forward),
             onPressed: () async {
-              auth.verifyPhoneNumberAndSendCode(context, number.phoneNumber);
+              await auth.verifyPhoneNumberAndSendCode(
+                  context, number.phoneNumber);
             },
           ),
         );

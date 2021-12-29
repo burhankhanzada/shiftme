@@ -8,14 +8,14 @@ class UserType {
 }
 
 @immutable
-class User {
+class ShiftMeUser {
   final String? uid;
   final String name;
   final String? imageUrl;
   final String phoneNumber;
   final String type;
 
-  User({
+  ShiftMeUser({
     this.uid,
     required this.name,
     this.imageUrl,
@@ -23,14 +23,14 @@ class User {
     String? type,
   }) : type = type ?? UserType.customer;
 
-  User copyWith({
+  ShiftMeUser copyWith({
     String? uid,
     String? name,
     String? imageUrl,
     String? phoneNumber,
     String? type,
   }) {
-    return User(
+    return ShiftMeUser(
       uid: uid ?? this.uid,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -49,8 +49,8 @@ class User {
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory ShiftMeUser.fromMap(Map<String, dynamic> map) {
+    return ShiftMeUser(
       uid: map['uid'],
       name: map['name'],
       imageUrl: map['imageUrl'],
@@ -61,7 +61,8 @@ class User {
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+  factory ShiftMeUser.fromJson(String source) =>
+      ShiftMeUser.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -72,7 +73,7 @@ class User {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is User &&
+    return other is ShiftMeUser &&
         other.uid == uid &&
         other.name == name &&
         other.imageUrl == imageUrl &&

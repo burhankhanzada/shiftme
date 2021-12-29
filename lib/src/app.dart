@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/constants/color_constants.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
 import 'package:shiftme/src/models/transporter.dart';
-import 'package:shiftme/src/models/user.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
-import 'package:shiftme/src/screens/home/home_screen.dart';
+import 'package:shiftme/src/screens/home/customer_home_screen.dart';
+import 'package:shiftme/src/screens/home/transporter_home_screen.dart';
 import 'package:shiftme/src/screens/sign_in/enter_number_screen.dart';
-import 'package:shiftme/src/utils/firbase.dart';
 import 'package:spaces/spaces.dart';
 
 class App extends StatelessWidget {
   const App({key}) : super(key: key);
 
-  static User? user;
+  static ShiftMeUser? user;
   static Transporter? transporter;
 
   @override
@@ -40,30 +40,15 @@ class App extends StatelessWidget {
         ),
         home: Consumer<AuthUserProvider>(
           builder: (context, auth, child) {
-            if (auth.isAuthenticated()) {
-              final uid = auth.firebaseUser!.uid;
-
-              usersRef.doc(uid).get().then(
-                (value) {
-                  if (value.exists) {
-                    App.user = value.data()!;
-
-                    if (user!.type == UserType.transporter) {
-                      transportersRef.doc(uid).get().then(
-                        (value) {
-                          transporter = value.data()!;
-                        },
-                      );
-                    }
-
-                    return const HomeScreen();
-                  }
-                },
-              );
-
-              return const HomeScreen();
-            } else {
+            if (!auth.isAuthenticated()) {
               return const LoginScreen();
+            } else {
+              auth.getUserDataAndNavigateAccordingly(context);
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             }
           },
         ),

@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiftme/src/app.dart';
-import 'package:shiftme/src/models/user.dart';
+import 'package:shiftme/src/models/shiftme_user.dart';
 import 'package:shiftme/src/providers/auth_user_provider.dart';
 import 'package:spaces/spaces.dart';
 
-import 'home/home_screen.dart';
+import 'home/customer_home_screen.dart';
 
 class SetupProfile extends StatelessWidget {
   const SetupProfile({Key? key}) : super(key: key);
@@ -72,7 +72,7 @@ class SetupProfile extends StatelessWidget {
 
           final uid = firebaseUser.uid;
 
-          App.user = User(
+          App.user = ShiftMeUser(
             uid: uid,
             name: nameController.text,
             phoneNumber: firebaseUser.phoneNumber!,
@@ -83,7 +83,7 @@ class SetupProfile extends StatelessWidget {
           await users.doc(uid).set(App.user!.toMap());
 
           await Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (contex) => const HomeScreen()),
+            MaterialPageRoute(builder: (contex) => const CustomerHomeScreen()),
             (route) => false,
           );
         },

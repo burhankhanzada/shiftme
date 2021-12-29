@@ -42,91 +42,89 @@ class BookingsScreen extends StatelessWidget {
         body: TabBarView(
           children: tabs
               .map(
-                (type) => Expanded(
-                  child: ListView(
-                    children: const [
-                      Card(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: SpacedColumn(
-                            padding: EdgeInsets.all(8),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Driver Name: Ali'),
-                              Text('Vechile: Shezor'),
-                              Text('Load Capacity: 500kg'),
-                              Text('Availability: 10AM - 8PM'),
-                              Text('Starting Price: 500'),
-                            ],
-                          ),
+                (type) => ListView(
+                  children: const [
+                    Card(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: SpacedColumn(
+                          padding: EdgeInsets.all(8),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Driver Name: Ali'),
+                            Text('Vechile: Shezor'),
+                            Text('Load Capacity: 500kg'),
+                            Text('Availability: 10AM - 8PM'),
+                            Text('Starting Price: 500'),
+                          ],
                         ),
                       ),
-                      Card(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: SpacedColumn(
-                            padding: EdgeInsets.all(8),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Driver Name: Ali'),
-                              Text('Vechile: Ravi'),
-                              Text('Load Capacity: 500kg'),
-                              Text('Availability: 10AM - 8PM'),
-                              Text('Starting Price: 500'),
-                            ],
-                          ),
+                    ),
+                    Card(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: SpacedColumn(
+                          padding: EdgeInsets.all(8),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Driver Name: Ali'),
+                            Text('Vechile: Ravi'),
+                            Text('Load Capacity: 500kg'),
+                            Text('Availability: 10AM - 8PM'),
+                            Text('Starting Price: 500'),
+                          ],
                         ),
                       ),
-                      Card(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: SpacedColumn(
-                            padding: EdgeInsets.all(8),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Driver Name: Ali'),
-                              Text('Vechile: Mazda'),
-                              Text('Load Capacity: 500kg'),
-                              Text('Availability: 10AM - 8PM'),
-                              Text('Starting Price: 500'),
-                            ],
-                          ),
+                    ),
+                    Card(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: SpacedColumn(
+                          padding: EdgeInsets.all(8),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Driver Name: Ali'),
+                            Text('Vechile: Mazda'),
+                            Text('Load Capacity: 500kg'),
+                            Text('Availability: 10AM - 8PM'),
+                            Text('Starting Price: 500'),
+                          ],
                         ),
                       ),
-                      Card(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: SpacedColumn(
-                            padding: EdgeInsets.all(8),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Driver Name: Ali'),
-                              Text('Vechile: Mazda'),
-                              Text('Load Capacity: 500kg'),
-                              Text('Availability: 10AM - 8PM'),
-                              Text('Starting Price: 500'),
-                            ],
-                          ),
+                    ),
+                    Card(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: SpacedColumn(
+                          padding: EdgeInsets.all(8),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Driver Name: Ali'),
+                            Text('Vechile: Mazda'),
+                            Text('Load Capacity: 500kg'),
+                            Text('Availability: 10AM - 8PM'),
+                            Text('Starting Price: 500'),
+                          ],
                         ),
                       ),
-                      Card(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: SpacedColumn(
-                            padding: EdgeInsets.all(8),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Driver Name: Ali'),
-                              Text('Vechile: Mazda'),
-                              Text('Load Capacity: 500kg'),
-                              Text('Availability: 10AM - 8PM'),
-                              Text('Starting Price: 500'),
-                            ],
-                          ),
+                    ),
+                    Card(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: SpacedColumn(
+                          padding: EdgeInsets.all(8),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Driver Name: Ali'),
+                            Text('Vechile: Mazda'),
+                            Text('Load Capacity: 500kg'),
+                            Text('Availability: 10AM - 8PM'),
+                            Text('Starting Price: 500'),
+                          ],
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               )
               .toList(),
